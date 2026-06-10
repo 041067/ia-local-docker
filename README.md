@@ -13,6 +13,11 @@ Com este projeto, qualquer desenvolvedor pode criar seu próprio ambiente de IA 
 * Testes de modelos de linguagem (LLMs)
 
 ---
+## Interface
+
+![Open WebUI](./docs/open-webui.png)
+
+---
 
 # 📋 Visão Geral
 

@@ -412,6 +412,195 @@ Este projeto pode ser expandido para:
 
 ---
 
+# 🐳 Instalando o Docker
+
+Antes de executar este projeto, é necessário instalar e configurar corretamente o Docker em seu sistema operacional.
+
+# 🪟 Windows
+Requisitos
+Windows 10 (64 bits) ou superior;
+Virtualização habilitada na BIOS;
+WSL2 habilitado.
+
+1. Instale o WSL2
+
+Abra o PowerShell como Administrador e execute:
+
+wsl --install
+
+Reinicie o computador quando solicitado.
+
+2. Verifique a instalação do WSL
+
+Após reiniciar, execute:
+
+wsl --status
+
+Resultado esperado:
+
+Default Version: 2
+
+Caso a versão padrão não seja 2:
+
+wsl --set-default-version 2
+
+3. Instale o Docker Desktop
+
+Faça o download:
+
+https://www.docker.com/products/docker-desktop/
+
+Execute o instalador normalmente.
+
+Durante a instalação, mantenha habilitadas as opções:
+
+✅ Use WSL 2 instead of Hyper-V
+✅ Add shortcut to desktop
+
+4. Reinicie o computador
+
+Após a instalação do Docker Desktop, reinicie o Windows.
+
+5. Abra o Docker Desktop
+
+Na primeira execução, aguarde até aparecer:
+
+Docker Desktop is running
+
+6. Verifique se o Docker está funcionando
+
+Abra o PowerShell e execute:
+
+docker --version
+
+Exemplo:
+
+Docker version 28.x.x
+
+Verifique também:
+
+docker compose version
+
+Exemplo:
+
+Docker Compose version v2.x.x
+
+Por fim:
+
+docker info
+
+Se retornar informações do Docker, está tudo pronto.
+
+7. (Opcional) Ajustar recursos do WSL
+
+Para melhorar o desempenho dos modelos de IA, crie o arquivo:
+
+C:\Users\SEU_USUARIO\.wslconfig
+
+Exemplo:
+
+[wsl2]
+memory=10GB
+processors=8
+swap=4GB
+
+Depois execute:
+
+wsl --shutdown
+
+Feche e abra novamente o Docker Desktop.
+
+# 🍎 macOS
+Requisitos
+macOS 12 ou superior;
+Processador Intel ou Apple Silicon (M1, M2, M3, M4).
+
+1. Instale o Docker Desktop
+
+Faça o download:
+
+https://www.docker.com/products/docker-desktop/
+
+Escolha a versão correta:
+
+Intel
+Docker Desktop for Mac (Intel Chip)
+Apple Silicon
+Docker Desktop for Mac (Apple Chip)
+
+2. Instale o Docker
+
+Abra o arquivo .dmg.
+
+Arraste o Docker para a pasta:
+
+Applications
+
+Abra o Docker Desktop.
+
+3. Conceda permissões
+
+O macOS poderá solicitar permissões administrativas.
+
+Aceite todas as solicitações.
+
+4. Aguarde o Docker iniciar
+
+Quando o ícone do Docker aparecer ativo na barra superior do macOS, a instalação estará concluída.
+
+5. Verifique a instalação
+
+Abra o Terminal do macOS ou o terminal integrado do VS Code.
+
+Execute:
+
+docker --version
+
+Exemplo:
+
+Docker version 28.x.x
+
+Verifique o Compose:
+
+docker compose version
+
+Exemplo:
+
+Docker Compose version v2.x.x
+
+Por fim:
+
+docker info
+
+Se retornar informações do Docker, está tudo funcionando corretamente.
+
+🧪 Teste Final
+
+Após concluir a instalação, execute:
+
+docker run hello-world
+
+Resultado esperado:
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+Se esta mensagem aparecer, o Docker está pronto para executar este projeto.
+
+# 🚀 Próximo Passo
+
+Com o Docker funcionando, volte para a seção Instalação deste README e execute o script correspondente ao seu sistema operacional:
+
+Windows
+.\scripts\setup.ps1
+macOS/Linux
+chmod +x scripts/setup.sh
+./scripts/setup.sh
+
+Pronto! Em poucos minutos você terá uma IA privada rodando localmente com Ollama e Open WebUI.
+
+---
+
 # 👨‍💻 Autor
 
 **Renan Café**

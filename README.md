@@ -13,6 +13,7 @@ Com este projeto, qualquer desenvolvedor pode criar seu próprio ambiente de IA 
 * Testes de modelos de linguagem (LLMs)
 
 ---
+
 ## Interface
 
 ![Open WebUI](./docs/open-webui.png)
@@ -57,8 +58,9 @@ Arquitetura:
 * Docker Compose
 * Ollama
 * Open WebUI
-* PowerShell
-* WSL2
+* PowerShell (Windows)
+* Bash (macOS/Linux)
+* WSL2 (Windows)
 
 ---
 
@@ -66,15 +68,11 @@ Arquitetura:
 
 Antes de iniciar, verifique se possui:
 
-### Windows 10 ou superior
+## Windows
 
-### Docker Desktop instalado
-
-Download:
-
-https://www.docker.com/products/docker-desktop/
-
-### WSL2 habilitado
+* Windows 10 ou superior
+* Docker Desktop instalado
+* WSL2 habilitado
 
 Verifique:
 
@@ -88,6 +86,15 @@ Caso não possua:
 wsl --install
 ```
 
+## macOS
+
+* Docker Desktop para macOS instalado
+
+## Linux
+
+* Docker Engine
+* Docker Compose
+
 ---
 
 # 📂 Estrutura do Projeto
@@ -99,8 +106,12 @@ IA-LOCAL-DOCKER
 ├── README.md
 ├── .gitignore
 │
+├── docs
+│   └── open-webui.png
+│
 └── scripts
-    └── setup.ps1
+    ├── setup.ps1
+    └── setup.sh
 ```
 
 ---
@@ -109,7 +120,7 @@ IA-LOCAL-DOCKER
 
 ## 1. Clonar o Repositório
 
-```powershell
+```bash
 git clone URL_DO_REPOSITORIO
 cd IA-Local-Docker
 ```
@@ -122,7 +133,7 @@ Antes de executar qualquer comando, certifique-se de que o Docker Desktop esteja
 
 Verifique:
 
-```powershell
+```bash
 docker info
 ```
 
@@ -132,7 +143,9 @@ Se o comando retornar informações do Docker, está tudo correto.
 
 ## 3. Executar a Automação
 
-Na raiz do projeto:
+### Windows
+
+Execute:
 
 ```powershell
 .\scripts\setup.ps1
@@ -145,35 +158,50 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 .\scripts\setup.ps1
 ```
 
----
+### macOS/Linux
 
-# ⚙️ O que o Script Faz?
+Conceda permissão de execução:
 
-O arquivo:
-
-```text
-scripts/setup.ps1
+```bash
+chmod +x scripts/setup.sh
 ```
 
-executa automaticamente:
+Execute:
 
-### Verificação do Docker
+```bash
+./scripts/setup.sh
+```
 
-Confirma se o Docker Desktop está ativo.
+---
 
-### Criação dos Containers
+# ⚙️ O que os Scripts Fazem?
+
+Os arquivos:
+
+```text
+scripts/setup.ps1 (Windows)
+scripts/setup.sh (macOS/Linux)
+```
+
+executam automaticamente:
+
+### ✅ Verificação do Docker
+
+Confirma se o Docker está em execução.
+
+### ✅ Criação dos Containers
 
 Executa:
 
-```powershell
+```bash
 docker compose up -d
 ```
 
-### Inicialização do Ollama
+### ✅ Inicialização do Ollama
 
 Aguarda o serviço ficar disponível.
 
-### Download dos Modelos
+### ✅ Download dos Modelos
 
 Instala automaticamente:
 
@@ -184,11 +212,11 @@ qwen2.5:3b
 deepseek-r1:1.5b
 ```
 
-### Verificação
+### ✅ Verificação
 
 Lista os modelos instalados.
 
-### Finalização
+### ✅ Finalização
 
 Exibe a URL de acesso.
 
@@ -204,9 +232,9 @@ http://localhost:3000
 
 Ao acessar pela primeira vez:
 
-1. Crie um usuário administrador.
-2. Faça login.
-3. Selecione um modelo.
+1. Crie um usuário administrador;
+2. Faça login;
+3. Selecione um modelo;
 4. Comece a conversar com a IA.
 
 ---
@@ -262,23 +290,23 @@ Indicado para:
 
 Listar containers:
 
-```powershell
-docker ps
+```bash
+docker compose ps
 ```
 
 Resultado esperado:
 
 ```text
-open-webui
-ollama
+ia-local-docker-ollama-1
+ia-local-docker-open-webui-1
 ```
 
 ---
 
 # 🔍 Verificando Modelos
 
-```powershell
-docker exec -i ollama ollama list
+```bash
+docker compose exec ollama ollama list
 ```
 
 Exemplo:
@@ -297,23 +325,23 @@ deepseek-r1:1.5b
 
 Exemplo:
 
-```powershell
-docker exec -i ollama ollama pull qwen2.5-coder:7b
+```bash
+docker compose exec ollama ollama pull qwen2.5-coder:7b
 ```
 
 Outros exemplos:
 
-```powershell
-docker exec -i ollama ollama pull gemma3:4b
-docker exec -i ollama ollama pull mistral:7b
-docker exec -i ollama ollama pull phi4
+```bash
+docker compose exec ollama ollama pull gemma3:4b
+docker compose exec ollama ollama pull mistral:7b
+docker compose exec ollama ollama pull phi4
 ```
 
 ---
 
 # 🛑 Parando os Containers
 
-```powershell
+```bash
 docker compose down
 ```
 
@@ -321,7 +349,7 @@ docker compose down
 
 # ▶️ Iniciando Novamente
 
-```powershell
+```bash
 docker compose up -d
 ```
 
@@ -331,23 +359,40 @@ docker compose up -d
 
 Remover containers:
 
-```powershell
+```bash
 docker compose down
 ```
 
-Remover volumes:
+Remover containers e volumes:
 
-```powershell
+```bash
 docker compose down -v
 ```
 
-⚠️ Atenção:
+⚠️ **Atenção:**
 
-Este comando remove:
+Este comando remove permanentemente:
 
-* Histórico do Open WebUI
-* Configurações
-* Modelos armazenados
+* Histórico do Open WebUI;
+* Configurações;
+* Modelos armazenados nos volumes do Docker.
+
+---
+
+# 🌎 Compatibilidade
+
+Este projeto foi desenvolvido para funcionar em múltiplas plataformas:
+
+| Sistema Operacional           | Suporte |
+| ----------------------------- | ------- |
+| Windows 10/11                 | ✅       |
+| macOS (Intel e Apple Silicon) | ✅       |
+| Linux                         | ✅       |
+
+A automação é realizada através de scripts específicos para cada ambiente:
+
+* `setup.ps1` → Windows
+* `setup.sh` → macOS/Linux
 
 ---
 
@@ -355,21 +400,21 @@ Este comando remove:
 
 Este projeto pode ser expandido para:
 
-* ChatGPT privado
-* Assistente programador
-* Chat com PDFs (RAG)
-* Base de conhecimento corporativa
-* Integração com APIs Flask
-* Integração com FastAPI
-* Deploy em servidores Linux
-* Ambientes educacionais
-* Laboratórios de IA
+* ChatGPT privado;
+* Assistente programador;
+* Chat com PDFs (RAG);
+* Base de conhecimento corporativa;
+* Integração com APIs Flask;
+* Integração com FastAPI;
+* Deploy em servidores Linux;
+* Ambientes educacionais;
+* Laboratórios de IA.
 
 ---
 
 # 👨‍💻 Autor
 
-Renan Café
+**Renan Café**
 
 Desenvolvedor de Software | Cloud Computing | Inteligência Artificial Generativa
 

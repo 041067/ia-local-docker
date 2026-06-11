@@ -14,7 +14,7 @@ docker compose up -d
 
 Write-Host "Aguardando Ollama iniciar..."
 
-Start-Sleep -Seconds 15
+Start-Sleep -Seconds 20
 
 Write-Host "Instalando modelos..."
 
@@ -27,12 +27,12 @@ $models = @(
 
 foreach ($model in $models) {
     Write-Host "Instalando modelo: $model"
-    docker exec -i ollama ollama pull $model
+    docker compose exec -T ollama ollama pull $model
 }
 
 Write-Host "Verificando modelos instalados..."
 
-docker exec -i ollama ollama list
+docker compose exec -T ollama ollama list
 
 Write-Host "Instalacao concluida!"
 Write-Host "Acesse: http://localhost:3000"

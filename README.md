@@ -4,17 +4,17 @@ Uma solução simples e prática para executar modelos de Inteligência Artifici
 
 Com este projeto, qualquer desenvolvedor pode criar seu próprio ambiente de IA privada para:
 
-* Assistência de programação
-* Geração de código
-* Criação de conteúdo
-* Estudos e pesquisas
-* Chatbots locais
-* Integração com aplicações próprias
-* Testes de modelos de linguagem (LLMs)
+* Assistência de programação;
+* Geração de código;
+* Criação de conteúdo;
+* Estudos e pesquisas;
+* Chatbots locais;
+* Integração com aplicações próprias;
+* Testes de modelos de linguagem (LLMs).
 
 ---
 
-## Interface
+## 📸 Interface
 
 ![Open WebUI](./docs/open-webui.png)
 
@@ -52,48 +52,40 @@ Arquitetura:
 
 ---
 
-# 🛠 Tecnologias Utilizadas
+# 🎯 Objetivo
 
-* Docker Desktop
-* Docker Compose
-* Ollama
-* Open WebUI
-* PowerShell (Windows)
-* Bash (macOS/Linux)
-* WSL2 (Windows)
+Democratizar o acesso a modelos de Inteligência Artificial Generativa através de uma solução simples, gratuita e multiplataforma, permitindo que qualquer desenvolvedor tenha seu próprio "ChatGPT privado" rodando localmente em poucos minutos.
 
 ---
 
-# 📌 Pré-requisitos
+# 🛠 Tecnologias Utilizadas
 
-Antes de iniciar, verifique se possui:
+* Docker Desktop;
+* Docker Compose;
+* Ollama;
+* Open WebUI;
+* PowerShell (Windows);
+* Bash (macOS/Linux);
+* WSL2 (Windows).
 
-## Windows
+---
 
-* Windows 10 ou superior
-* Docker Desktop instalado
-* WSL2 habilitado
+# 🌎 Compatibilidade
 
-Verifique:
+Este projeto foi desenvolvido para funcionar em múltiplas plataformas.
 
-```powershell
-wsl --status
-```
+## ✅ Testado oficialmente
 
-Caso não possua:
+| Sistema Operacional           | Status                                                       |
+| ----------------------------- | ------------------------------------------------------------ |
+| Windows 10/11                 | ✅ Testado                                                    |
+| macOS (Intel e Apple Silicon) | ✅ Testado                                                    |
+| Linux                         | ⚠️ Compatível via Docker Compose (não validado oficialmente) |
 
-```powershell
-wsl --install
-```
+A automação é realizada através de scripts específicos para cada ambiente:
 
-## macOS
-
-* Docker Desktop para macOS instalado
-
-## Linux
-
-* Docker Engine
-* Docker Compose
+* `setup.ps1` → Windows;
+* `setup.sh` → macOS/Linux.
 
 ---
 
@@ -116,7 +108,255 @@ IA-LOCAL-DOCKER
 
 ---
 
-# 📥 Instalação
+# 🐳 Instalando o Docker
+
+Antes de executar este projeto, é necessário instalar e configurar corretamente o Docker em seu sistema operacional.
+
+---
+
+# 🪟 Windows
+
+## Requisitos
+
+* Windows 10 (64 bits) ou superior;
+* Virtualização habilitada na BIOS;
+* WSL2 habilitado.
+
+---
+
+## 1. Instale o WSL2
+
+Abra o PowerShell como Administrador e execute:
+
+```powershell
+wsl --install
+```
+
+Reinicie o computador quando solicitado.
+
+---
+
+## 2. Verifique a instalação do WSL
+
+Após reiniciar, execute:
+
+```powershell
+wsl --status
+```
+
+Resultado esperado:
+
+```text
+Default Version: 2
+```
+
+Caso a versão padrão não seja 2:
+
+```powershell
+wsl --set-default-version 2
+```
+
+---
+
+## 3. Instale o Docker Desktop
+
+Faça o download:
+
+https://www.docker.com/products/docker-desktop/
+
+Execute o instalador normalmente.
+
+Durante a instalação, mantenha habilitadas as opções:
+
+* ✅ Use WSL 2 instead of Hyper-V;
+* ✅ Add shortcut to desktop.
+
+---
+
+## 4. Reinicie o computador
+
+Após a instalação do Docker Desktop, reinicie o Windows.
+
+---
+
+## 5. Abra o Docker Desktop
+
+Na primeira execução, aguarde até aparecer:
+
+```text
+Docker Desktop is running
+```
+
+---
+
+## 6. Verifique se o Docker está funcionando
+
+Abra o PowerShell e execute:
+
+```powershell
+docker --version
+```
+
+Exemplo:
+
+```text
+Docker version 28.x.x
+```
+
+Verifique também:
+
+```powershell
+docker compose version
+```
+
+Exemplo:
+
+```text
+Docker Compose version v2.x.x
+```
+
+Por fim:
+
+```powershell
+docker info
+```
+
+Se retornar informações do Docker, está tudo pronto.
+
+---
+
+## 7. (Opcional) Ajustar recursos do WSL
+
+Para melhorar o desempenho dos modelos de IA, crie o arquivo:
+
+```text
+C:\Users\SEU_USUARIO\.wslconfig
+```
+
+Exemplo:
+
+```ini
+[wsl2]
+memory=10GB
+processors=8
+swap=4GB
+```
+
+Depois execute:
+
+```powershell
+wsl --shutdown
+```
+
+Feche e abra novamente o Docker Desktop.
+
+---
+
+# 🍎 macOS
+
+## Requisitos
+
+* macOS 12 ou superior;
+* Processador Intel ou Apple Silicon (M1, M2, M3, M4).
+
+---
+
+## 1. Instale o Docker Desktop
+
+Faça o download:
+
+https://www.docker.com/products/docker-desktop/
+
+Escolha a versão correta para sua arquitetura.
+
+---
+
+## 2. Instale o Docker
+
+Abra o arquivo `.dmg`.
+
+Arraste o Docker para a pasta:
+
+```text
+Applications
+```
+
+Abra o Docker Desktop.
+
+---
+
+## 3. Conceda permissões
+
+O macOS poderá solicitar permissões administrativas.
+
+Aceite todas as solicitações.
+
+---
+
+## 4. Aguarde o Docker iniciar
+
+Quando o ícone do Docker aparecer ativo na barra superior do macOS, a instalação estará concluída.
+
+---
+
+## 5. Verifique a instalação
+
+Abra o Terminal do macOS ou o terminal integrado do VS Code.
+
+Execute:
+
+```bash
+docker --version
+```
+
+Exemplo:
+
+```text
+Docker version 28.x.x
+```
+
+Verifique o Compose:
+
+```bash
+docker compose version
+```
+
+Exemplo:
+
+```text
+Docker Compose version v2.x.x
+```
+
+Por fim:
+
+```bash
+docker info
+```
+
+Se retornar informações do Docker, está tudo funcionando corretamente.
+
+---
+
+# 🧪 Teste Final do Docker
+
+Após concluir a instalação, execute:
+
+```bash
+docker run hello-world
+```
+
+Resultado esperado:
+
+```text
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+```
+
+Se esta mensagem aparecer, o Docker está pronto para executar este projeto.
+
+---
+
+# 📥 Instalação do Projeto
 
 ## 1. Clonar o Repositório
 
@@ -127,11 +367,9 @@ cd IA-Local-Docker
 
 ---
 
-## 2. Abrir o Docker Desktop
+## 2. Verificar se o Docker está em execução
 
-Antes de executar qualquer comando, certifique-se de que o Docker Desktop esteja em execução.
-
-Verifique:
+Execute:
 
 ```bash
 docker info
@@ -157,6 +395,8 @@ Caso o PowerShell bloqueie a execução:
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 .\scripts\setup.ps1
 ```
+
+---
 
 ### macOS/Linux
 
@@ -189,7 +429,7 @@ executam automaticamente:
 
 Confirma se o Docker está em execução.
 
-### ✅ Criação dos Containers
+### ✅ Inicialização dos Containers
 
 Executa:
 
@@ -245,13 +485,13 @@ Ao acessar pela primeira vez:
 
 Indicado para:
 
-* HTML
-* CSS
-* JavaScript
-* Python
-* SQL
-* Docker
-* Terraform
+* HTML;
+* CSS;
+* JavaScript;
+* Python;
+* SQL;
+* Docker;
+* Terraform.
 
 ---
 
@@ -259,10 +499,10 @@ Indicado para:
 
 Indicado para:
 
-* Conversação
-* Estudos
-* Resumos
-* Explicações técnicas
+* Conversação;
+* Estudos;
+* Resumos;
+* Explicações técnicas.
 
 ---
 
@@ -270,9 +510,9 @@ Indicado para:
 
 Indicado para:
 
-* Uso geral
-* Produção de conteúdo
-* Pesquisa
+* Uso geral;
+* Produção de conteúdo;
+* Pesquisa.
 
 ---
 
@@ -280,9 +520,9 @@ Indicado para:
 
 Indicado para:
 
-* Raciocínio lógico
-* Resolução de problemas
-* Explicações detalhadas
+* Raciocínio lógico;
+* Resolução de problemas;
+* Explicações detalhadas.
 
 ---
 
@@ -369,30 +609,11 @@ Remover containers e volumes:
 docker compose down -v
 ```
 
-⚠️ **Atenção:**
-
-Este comando remove permanentemente:
+⚠️ **Atenção:** este comando remove permanentemente:
 
 * Histórico do Open WebUI;
 * Configurações;
 * Modelos armazenados nos volumes do Docker.
-
----
-
-# 🌎 Compatibilidade
-
-Este projeto foi desenvolvido para funcionar em múltiplas plataformas:
-
-| Sistema Operacional           | Suporte |
-| ----------------------------- | ------- |
-| Windows 10/11                 | ✅       |
-| macOS (Intel e Apple Silicon) | ✅       |
-| Linux                         | ✅       |
-
-A automação é realizada através de scripts específicos para cada ambiente:
-
-* `setup.ps1` → Windows
-* `setup.sh` → macOS/Linux
 
 ---
 
@@ -409,195 +630,6 @@ Este projeto pode ser expandido para:
 * Deploy em servidores Linux;
 * Ambientes educacionais;
 * Laboratórios de IA.
-
----
-
-# 🐳 Instalando o Docker
-
-Antes de executar este projeto, é necessário instalar e configurar corretamente o Docker em seu sistema operacional.
-
-# 🪟 Windows
-Requisitos
-Windows 10 (64 bits) ou superior;
-Virtualização habilitada na BIOS;
-WSL2 habilitado.
-
-1. Instale o WSL2
-
-Abra o PowerShell como Administrador e execute:
-
-wsl --install
-
-Reinicie o computador quando solicitado.
-
-2. Verifique a instalação do WSL
-
-Após reiniciar, execute:
-
-wsl --status
-
-Resultado esperado:
-
-Default Version: 2
-
-Caso a versão padrão não seja 2:
-
-wsl --set-default-version 2
-
-3. Instale o Docker Desktop
-
-Faça o download:
-
-https://www.docker.com/products/docker-desktop/
-
-Execute o instalador normalmente.
-
-Durante a instalação, mantenha habilitadas as opções:
-
-✅ Use WSL 2 instead of Hyper-V
-✅ Add shortcut to desktop
-
-4. Reinicie o computador
-
-Após a instalação do Docker Desktop, reinicie o Windows.
-
-5. Abra o Docker Desktop
-
-Na primeira execução, aguarde até aparecer:
-
-Docker Desktop is running
-
-6. Verifique se o Docker está funcionando
-
-Abra o PowerShell e execute:
-
-docker --version
-
-Exemplo:
-
-Docker version 28.x.x
-
-Verifique também:
-
-docker compose version
-
-Exemplo:
-
-Docker Compose version v2.x.x
-
-Por fim:
-
-docker info
-
-Se retornar informações do Docker, está tudo pronto.
-
-7. (Opcional) Ajustar recursos do WSL
-
-Para melhorar o desempenho dos modelos de IA, crie o arquivo:
-
-C:\Users\SEU_USUARIO\.wslconfig
-
-Exemplo:
-
-[wsl2]
-memory=10GB
-processors=8
-swap=4GB
-
-Depois execute:
-
-wsl --shutdown
-
-Feche e abra novamente o Docker Desktop.
-
-# 🍎 macOS
-Requisitos
-macOS 12 ou superior;
-Processador Intel ou Apple Silicon (M1, M2, M3, M4).
-
-1. Instale o Docker Desktop
-
-Faça o download:
-
-https://www.docker.com/products/docker-desktop/
-
-Escolha a versão correta:
-
-Intel
-Docker Desktop for Mac (Intel Chip)
-Apple Silicon
-Docker Desktop for Mac (Apple Chip)
-
-2. Instale o Docker
-
-Abra o arquivo .dmg.
-
-Arraste o Docker para a pasta:
-
-Applications
-
-Abra o Docker Desktop.
-
-3. Conceda permissões
-
-O macOS poderá solicitar permissões administrativas.
-
-Aceite todas as solicitações.
-
-4. Aguarde o Docker iniciar
-
-Quando o ícone do Docker aparecer ativo na barra superior do macOS, a instalação estará concluída.
-
-5. Verifique a instalação
-
-Abra o Terminal do macOS ou o terminal integrado do VS Code.
-
-Execute:
-
-docker --version
-
-Exemplo:
-
-Docker version 28.x.x
-
-Verifique o Compose:
-
-docker compose version
-
-Exemplo:
-
-Docker Compose version v2.x.x
-
-Por fim:
-
-docker info
-
-Se retornar informações do Docker, está tudo funcionando corretamente.
-
-🧪 Teste Final
-
-Após concluir a instalação, execute:
-
-docker run hello-world
-
-Resultado esperado:
-
-Hello from Docker!
-This message shows that your installation appears to be working correctly.
-
-Se esta mensagem aparecer, o Docker está pronto para executar este projeto.
-
-# 🚀 Próximo Passo
-
-Com o Docker funcionando, volte para a seção Instalação deste README e execute o script correspondente ao seu sistema operacional:
-
-Windows
-.\scripts\setup.ps1
-macOS/Linux
-chmod +x scripts/setup.sh
-./scripts/setup.sh
-
-Pronto! Em poucos minutos você terá uma IA privada rodando localmente com Ollama e Open WebUI.
 
 ---
 
